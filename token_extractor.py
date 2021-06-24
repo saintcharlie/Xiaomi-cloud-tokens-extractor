@@ -40,6 +40,7 @@ class XiaomiCloudConnector:
             "userId": self._username
         }
         response = self._session.get(url, headers=headers, cookies=cookies)
+        print(response.text)
         valid = response.status_code == 200 and "_sign" in self.to_json(response.text)
         if valid:
             self._sign = self.to_json(response.text)["_sign"]
@@ -61,6 +62,7 @@ class XiaomiCloudConnector:
             "_json": "true"
         }
         response = self._session.post(url, headers=headers, params=fields)
+        print(response.text)
         valid = response is not None and response.status_code == 200
         if valid:
             json_resp = self.to_json(response.text)
@@ -85,6 +87,7 @@ class XiaomiCloudConnector:
             "Content-Type": "application/x-www-form-urlencoded"
         }
         response = self._session.get(self._location, headers=headers)
+        print(response.text)
         if response.status_code == 200:
             self._serviceToken = response.cookies.get("serviceToken")
         return response.status_code == 200
@@ -94,9 +97,15 @@ class XiaomiCloudConnector:
         self._session.cookies.set("sdkVersion", "accountsdk-18.8.15", domain="xiaomi.com")
         self._session.cookies.set("deviceId", self._device_id, domain="mi.com")
         self._session.cookies.set("deviceId", self._device_id, domain="xiaomi.com")
+        print("LOGIN STEP 1...")
         if self.login_step_1():
+            print("LOGIN STEP 1 DONE.")
+            print("LOGIN STEP 2...")
             if self.login_step_2():
+                print("LOGIN STEP 2 DONE.")
+                print("LOGIN STEP 3...")
                 if self.login_step_3():
+                    print("LOGIN STEP 3 DONE.")
                     return True
                 else:
                     print("Unable to get service token.")
