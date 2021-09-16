@@ -18,7 +18,7 @@ Download and run [token_extractor.exe](https://github.com/PiotrMachowski/Xiaomi-
 
 Execute following command:
 ```bash
-bash <(curl -L https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor/raw/master/run.sh)
+bash <(curl -L https://github.com/saintcharlie/Xiaomi-cloud-tokens-extractor/raw/master/run.sh)
 ```
 
 ## Docker
